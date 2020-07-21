@@ -18,6 +18,7 @@ var bt7 = document.getElementById('7');
 var bt8 = document.getElementById('8');
 var bt9 = document.getElementById('9');
 var bt0 = document.getElementById('0');
+var btpunto = document.getElementById('punto');
 
 var numero;
 var operaciones;
@@ -40,12 +41,15 @@ function clear(){
 }
 function agregarnumero(num){
     //alert(num)
-    if(document.querySelector("#display").innerHTML = '0' && num === '0'){
+    if(document.querySelector("#display").innerHTML === '0' && num === '0'){
         actualopera = '0';
         actualizardisplay();
+    }else if(document.querySelector("#display").innerHTML === '0' && num === 'punto'){
+        actualopera = actualopera.toString() + ".";
+        actualizardisplay();
     }else{
-    actualopera = actualopera.toString() + num.toString();
-    actualizardisplay();
+        actualopera = actualopera.toString() + num.toString();
+        actualizardisplay();
     }
 }
 function actualizardisplay(){
@@ -105,6 +109,10 @@ operaciones.forEach(function(boton){
 btResultado.addEventListener('click',function(){
     calcular();
     actualizardisplay();
+})
+
+btpunto.addEventListener('click', function(){
+    agregarnumero(btpunto.id);
 })
 
 btDelete.addEventListener('click',function(){
