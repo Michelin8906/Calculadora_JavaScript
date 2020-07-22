@@ -19,6 +19,7 @@ var bt8 = document.getElementById('8');
 var bt9 = document.getElementById('9');
 var bt0 = document.getElementById('0');
 var btpunto = document.getElementById('punto');
+var btsigno = document.getElementById('sign');
 
 var numero;
 var operaciones;
@@ -27,6 +28,8 @@ var num = 0;
 var actualopera = '';
 var anterioropera = '';
 var operacion = undefined;
+var mostraropera = '';
+var StrCalculo = '';
 
 numero = [bt1,bt2,bt3,bt4,bt5,bt6,bt7,bt8,bt9,bt0];
 operaciones = [btRaiz,btDividido,btPor,btMenos,btmas];
@@ -52,6 +55,7 @@ function agregarnumero(num){
         actualizardisplay();
     }
 }
+
 function actualizardisplay(){
     document.querySelector("#display")
         .innerHTML = actualopera;
@@ -83,13 +87,21 @@ function calcular(){
             break;
         case 'dividido':
             calculo = anterior / actual;
-            break;
+            break;   v
         default:
             return;
     }
-    actualopera = calculo;
-    operacion = undefined;
-    anterioropera = '';
+    StrCalculo = calculo.toString();
+    if(StrCalculo.length() > 8){
+        actualopera = calculo.toPrecision(8);
+        operacion = undefined;
+        anterioropera = '';
+    }else{
+        actualopera = calculo;
+        operacion = undefined;
+        anterioropera = '';
+    }
+    
 }
 //eventos
 numero.forEach(function(boton){
@@ -117,6 +129,13 @@ btpunto.addEventListener('click', function(){
 
 btDelete.addEventListener('click',function(){
     clear();
+})
+
+btsigno.addEventListener('click',function(){
+    if(document.querySelector("#display").innerHTML === '0' && document.querySelector("#display").innerHTML === '') return;
+    actualopera = document.querySelector("#display").innerHTML;
+    actualopera = actualopera * '-1';
+    actualizardisplay();
 })
 
 function mostrar_numero(event){
