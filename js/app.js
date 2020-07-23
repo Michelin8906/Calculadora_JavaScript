@@ -30,12 +30,15 @@ var anterioropera = '';
 var operacion = undefined;
 var mostraropera = '';
 var StrCalculo = '';
+var CompaNum = 1;
+var calculo = 0;
 
 numero = [bt1,bt2,bt3,bt4,bt5,bt6,bt7,bt8,bt9,bt0];
 operaciones = [btRaiz,btDividido,btPor,btMenos,btmas];
 //declaracion de funciones
 
 function clear(){
+    I = 1;
     actualopera = '';
     anterioropera ='';
     operacion = undefined;
@@ -44,6 +47,7 @@ function clear(){
 }
 function agregarnumero(num){
     //alert(num)
+    if(I === 9) return;
     if(document.querySelector("#display").innerHTML === '0' && num === '0'){
         actualopera = '0';
         actualizardisplay();
@@ -54,6 +58,7 @@ function agregarnumero(num){
         actualopera = actualopera.toString() + num.toString();
         actualizardisplay();
     }
+    I++
 }
 
 function actualizardisplay(){
@@ -69,6 +74,8 @@ function selectoperacion(op){
     operacion = op.toString();
     anterioropera = actualopera;
     actualopera = '';
+    I = 1;
+    actualizardisplay();
 }
 function calcular(){
     var calculo;
@@ -87,25 +94,25 @@ function calcular(){
             break;
         case 'dividido':
             calculo = anterior / actual;
-            break;   v
+            break;
         default:
             return;
     }
     StrCalculo = calculo.toString();
-    if(StrCalculo.length() > 8){
-        actualopera = calculo.toPrecision(8);
-        operacion = undefined;
-        anterioropera = '';
-    }else{
-        actualopera = calculo;
-        operacion = undefined;
-        anterioropera = '';
+    CompaNum = StrCalculo.length;
+    if(CompaNum > 8){
+        calculo = StrCalculo.substring(0,8)
     }
-    
+    actualopera = calculo;
+    operacion = undefined;
+    anterioropera = '';
+    I = 1;
 }
 //eventos
 numero.forEach(function(boton){
     boton.addEventListener('click',function(){
+        boton.style.height ='57.91px';
+        boton.style.width ='20%';
         agregarnumero(boton.id);
         //alert(boton.id);
     })
