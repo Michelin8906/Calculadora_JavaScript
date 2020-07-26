@@ -54,7 +54,13 @@ function agregarnumero(num){
     }else if(document.querySelector("#display").innerHTML === '0' && num === 'punto'){
         actualopera = actualopera.toString() + ".";
         actualizardisplay();
+    }else if(document.querySelector("#display").innerHTML > 0 && num === 'punto'){
+        actualopera = actualopera.toString() + ".";
+        actualizardisplay();
+    }else if(document.querySelector("#display").innerHTML = '' && num === 'punto'){
+        return;
     }else{
+        if(num === "punto") return;
         actualopera = actualopera.toString() + num.toString();
         actualizardisplay();
     }
@@ -110,18 +116,39 @@ function calcular(){
 }
 //eventos
 numero.forEach(function(boton){
+    
     boton.addEventListener('click',function(){
-        boton.style.height ='57.91px';
-        boton.style.width ='20%';
         agregarnumero(boton.id);
-        //alert(boton.id);
+        
+    })
+    boton.addEventListener('mousedown',function(){
+        cambioforma(boton.id);
+    })
+    boton.addEventListener('mouseup',function(){
+        cambioforma2(boton.id);
     })
 }); 
 
+function cambioforma(boton){
+    document.getElementById(boton).style.transitionProperty = 'transform';
+    document.getElementById(boton).style.transitionDuration = '0.5s';
+    document.getElementById(boton).style.transform = 'scale(0.9)';
+}
+function cambioforma2(boton){
+    document.getElementById(boton).style.transitionProperty = 'transform';
+    document.getElementById(boton).style.transitionDuration = '0.5s';
+    document.getElementById(boton).style.transform = 'scale(1.0)';
+}
 operaciones.forEach(function(boton){
     boton.addEventListener('click',function(){
         selectoperacion(boton.id);
         //alert(boton.id);
+    })
+    boton.addEventListener('mousedown',function(){
+        cambioforma(boton.id);
+    })
+    boton.addEventListener('mouseup',function(){
+        cambioforma2(boton.id);
     })
 })
 
@@ -129,20 +156,46 @@ btResultado.addEventListener('click',function(){
     calcular();
     actualizardisplay();
 })
+btResultado.addEventListener('mousedown',function(){
+    cambioforma(btResultado.id);
+})
+btResultado.addEventListener('mouseup',function(){
+    cambioforma2(btResultado.id);
+})
 
 btpunto.addEventListener('click', function(){
     agregarnumero(btpunto.id);
 })
+btpunto.addEventListener('mousedown',function(){
+    cambioforma(btpunto.id);
+})
+btpunto.addEventListener('mouseup',function(){
+    cambioforma2(btpunto.id);
+})
+
 
 btDelete.addEventListener('click',function(){
     clear();
 })
+btDelete.addEventListener('mousedown',function(){
+    cambioforma(btDelete.id);
+})
+btDelete.addEventListener('mouseup',function(){
+    cambioforma2(btDelete.id);
+})
+
 
 btsigno.addEventListener('click',function(){
     if(document.querySelector("#display").innerHTML === '0' && document.querySelector("#display").innerHTML === '') return;
     actualopera = document.querySelector("#display").innerHTML;
     actualopera = actualopera * '-1';
     actualizardisplay();
+})
+btsigno.addEventListener('mousedown',function(){
+    cambioforma(btsigno.id);
+})
+btsigno.addEventListener('mouseup',function(){
+    cambioforma2(btsigno.id);
 })
 
 function mostrar_numero(event){
